@@ -1,0 +1,1205 @@
+<!-- GradUser_New_en -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #df587c;
+            --bg: #ffffff;
+            --highlight: #8cb8e6;
+            --text: #333;
+            --error: #e53e3e;
+            --error-bg: #fff5f5;
+            --error-border: #fc8181;
+            --success: #38a169;
+            --nav-height: 64px;
+        }
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* ===================== NAVBAR ===================== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #ffffff;
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 48px;
+            border-bottom: 1px solid #e8e8e8;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .navbar-logo img {
+            height: 38px;
+            width: auto;
+            display: block;
+        }
+        .navbar-title {
+            border-left-color: #e0e0e0;
+        }
+
+        .navbar-title {
+            color: #333333;
+            font-size: 20px;
+            font-family: 'Sarabun', sans-serif;
+            font-weight: 400;
+            margin-left: 20px;
+            padding-left: 20px;
+            border-left: 1px solid rgba(255,255,255,0.25);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+
+        .lang-btn {
+            color: #333333;
+            font-size: 16px;
+            font-family: 'Sarabun', sans-serif;
+            font-weight: 400;
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .lang-btn:hover {
+            background: rgba(0,0,0,0.06);
+        }
+
+        .lang-btn.active {
+            background: rgba(223,88,124,0.10);
+            color: #df587c;
+            font-weight: 700;
+        }
+
+        .lang-divider {
+            color: rgba(0,0,0,0.25);
+            font-size: 14px;
+            user-select: none;
+        }
+
+        /* ===================== BANNER ===================== */
+        .banner {
+            position: relative;
+            width: 100%;
+            height: 40vh;
+            min-height: 280px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .banner-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center 40%;
+            background-repeat: no-repeat;
+            background-image: url('images/banner_home.png');
+            
+        }
+
+        .banner-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(20, 20, 35, 0.65) 0%,
+                rgba(10, 10, 20, 0.35) 100%
+            );
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 1;
+            padding: 52px 48px;
+            max-width: 860px;
+        }
+
+        .banner-heading {
+            font-family: 'Sarabun', sans-serif;
+            font-weight: 700;
+            font-size: 34px;
+            color: #f9f9f9;
+            margin: 0 0 12px 0;
+            line-height: 1.3;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+        }
+
+        .banner-subheading {
+            font-family: 'Sarabun', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: #f9f9f9;
+            margin: 0;
+            opacity: 0.92;
+            text-shadow: 0 1px 8px rgba(0,0,0,0.35);
+        }
+
+        /* ===================== QUESTIONNAIRE TITLE ===================== */
+        .questionnaire-title-bar {
+            padding: 24px 48px;
+        }
+
+        .questionnaire-title {
+            font-family: 'Sarabun', sans-serif;
+            font-size: 34px;
+            font-weight: 700;
+            color: #df587c;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        /* ===================== MAIN CONTENT ===================== */
+        .page-body {
+            padding: 0 48px 0 48px;
+        }
+
+        .container { max-width: 1100px; margin: auto; }
+
+        .question-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+        .question-card.has-error {
+            border-color: var(--error-border);
+            box-shadow: 0 0 0 3px rgba(229,62,62,0.15), 0 2px 8px rgba(0,0,0,0.06);
+            background-color: var(--error-bg);
+        }
+        .error-message {
+            display: none;
+            color: var(--error);
+            font-size: 0.88rem;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: rgba(229,62,62,0.08);
+            border-radius: 6px;
+            border-left: 3px solid var(--error);
+        }
+        .question-card.has-error .error-message { display: block; }
+
+        .section-header {
+            border-left: 8px solid var(--primary);
+            margin-bottom: 4px;
+            margin-top: 20px;
+            border-color: transparent transparent transparent var(--primary) !important;
+        }
+        .section-header:first-child { margin-top: 0; }
+        .question-title {
+            font-weight: bold;
+            color: var(--text);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: block;
+        }
+        .question-subtitle {
+            font-weight: normal;
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .required { color: var(--error); margin-left: 5px; }
+
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            background: white;
+            color: var(--text);
+        }
+        input[type="text"]:focus, textarea:focus, select:focus { outline: none; border-color: var(--primary); }
+        input[type="text"]:disabled { background: #f5f5f5; color: #aaa; cursor: not-allowed; }
+        textarea { resize: vertical; min-height: 80px; }
+        select { appearance: none; -webkit-appearance: none; cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+        select option[value=""] { color: #999; }
+
+        .radio-group { margin: 10px 0; }
+        .radio-item { margin-bottom: 12px; display: flex; align-items: center; cursor: pointer; }
+        .radio-item input { margin-right: 12px; width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary); }
+
+        .checkbox-item { margin-bottom: 12px; display: flex; align-items: flex-start; cursor: pointer; }
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 12px; width: 18px; height: 18px;
+            cursor: pointer; accent-color: var(--primary); flex-shrink: 0; margin-top: 3px;
+        }
+        .checkbox-label { flex: 1; }
+
+        .other-row {
+            display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+        }
+        .other-row input[type="radio"], .other-row input[type="checkbox"] {
+            width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary); flex-shrink: 0;
+        }
+        .other-row .other-label { white-space: nowrap; color: #555; }
+        .other-row .other-text-input {
+            flex: 1; padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px;
+            font-family: 'Sarabun', sans-serif; font-size: 1rem;
+            transition: border-color 0.2s, background 0.2s;
+            background: #f9f9f9; color: #aaa;
+        }
+        .other-row .other-text-input:not(:disabled) { background: white; color: var(--text); border-color: var(--primary); }
+        .other-row .other-text-input:focus { outline: none; border-color: var(--primary); }
+
+        /* Degree checkbox with percent input + "Don't know" toggle */
+        .deg-row {
+            display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+        }
+        .deg-row input[type="checkbox"] {
+            width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary); flex-shrink: 0;
+        }
+        .deg-row .deg-label { white-space: nowrap; min-width: 140px; }
+        .deg-percent-wrap {
+            display: none; align-items: center; gap: 8px; flex: 1;
+            animation: slideInRight 0.25s ease;
+        }
+        .deg-percent-wrap.visible { display: flex; }
+        .deg-percent-wrap input[type="text"] { flex: 1; min-width: 0; width: auto; }
+        .deg-percent-wrap .pct-unit { color: #555; white-space: nowrap; }
+        .btn-unknown {
+            background: #f0f0f0; border: 1px solid #ccc; border-radius: 8px;
+            color: #666; cursor: pointer; padding: 10px 14px; font-size: 0.88rem;
+            font-family: 'Sarabun', sans-serif; white-space: nowrap; flex-shrink: 0;
+            transition: all 0.2s; line-height: 1;
+        }
+        .btn-unknown:hover { border-color: var(--highlight); color: #3a7bbf; background: #eef5fc; }
+        .btn-unknown.active { background: #ddeeff; border-color: var(--highlight); color: #2266aa; font-weight: bold; }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(-10px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        .single-scale {
+            border: 1px solid #eee; border-radius: 8px; padding: 15px;
+            background: #fcfdff; border-top: 5px solid var(--highlight); margin-bottom: 12px;
+        }
+        .single-scale.scale-target { border-top-color: var(--primary); background: #fffcfd; }
+        .scale-header { font-weight: bold; text-align: center; margin-bottom: 10px; font-size: 0.95rem; }
+        .scale-labels { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.8rem; color: #888; }
+        .single-likert { display: flex; justify-content: space-between; align-items: center; padding: 0 5px; }
+        .option { text-align: center; flex: 1; }
+        .option label { display: block; font-size: 0.85rem; margin-bottom: 5px; color: #666; font-weight: bold; }
+        .option input { accent-color: var(--primary); width: 18px; height: 18px; cursor: pointer; }
+
+        .section-gap { height: 20px; }
+
+        .dynamic-input-wrapper { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+        .dynamic-input-wrapper input[type="text"] { flex: 1; }
+        .btn-remove {
+            background: none; border: 1px solid #ccc; border-radius: 8px; color: #999;
+            cursor: pointer; padding: 12px 16px; font-size: 0.9rem;
+            font-family: 'Sarabun', sans-serif; flex-shrink: 0; box-sizing: border-box; line-height: 1;
+        }
+        .btn-remove:hover { border-color: var(--error); color: var(--error); }
+        .btn-add-more {
+            background: none; border: 2px dashed #ccc; border-radius: 8px; color: #888;
+            cursor: pointer; padding: 10px 20px; font-family: 'Sarabun', sans-serif;
+            font-size: 0.95rem; width: 100%; margin-top: 5px;
+        }
+        .btn-add-more:hover { border-color: var(--primary); color: var(--primary); }
+
+        .btn-group { display: flex; gap: 15px; padding: 20px 0 80px 0; align-items: center; }
+        .btn {
+            padding: 18px; border-radius: 12px; cursor: pointer; font-size: 1.1rem;
+            font-weight: bold; font-family: 'Sarabun', sans-serif;
+            transition: all 0.2s ease; text-align: center; border: none;
+        }
+        .btn-primary { flex: 2; background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(223, 88, 124, 0.3); }
+        .btn-secondary { flex: 1; background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+        .btn:active { transform: scale(0.98); }
+
+        .scale-row { display: flex; gap: 16px; }
+        .scale-row .single-scale { flex: 1; min-width: 0; margin-bottom: 0; }
+
+        /* Standalone likert (single scale) */
+        .standalone-scale {
+            border: 1px solid #eee; border-radius: 8px; padding: 15px;
+            background: #fcfdff; border-top: 5px solid var(--primary); margin-top: 8px;
+        }
+
+        /* Modal — Bottom Sheet */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+            z-index: 9999; align-items: flex-end; justify-content: center; padding: 0;
+        }
+        .modal-overlay.active { display: flex; animation: overlayFadeIn 0.25s ease forwards; }
+        @keyframes overlayFadeIn {
+            from { background: rgba(0,0,0,0); }
+            to   { background: rgba(0,0,0,0.45); }
+        }
+        .modal-box {
+            background: white; border-radius: 24px 24px 0 0; padding: 12px 32px 44px;
+            max-width: 100%; width: 100%; text-align: center;
+            box-shadow: 0 -8px 40px rgba(0,0,0,0.15);
+            animation: slideFromBottom 0.35s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+        }
+        @keyframes slideFromBottom {
+            from { transform: translateY(100%); opacity: 0.6; }
+            to   { transform: translateY(0); opacity: 1; }
+        }
+        .modal-handle { width: 40px; height: 4px; background: #ddd; border-radius: 2px; margin: 16px auto 24px; }
+        .modal-icon { font-size: 2.8rem; margin-bottom: 10px; line-height: 1; }
+        .modal-title { font-size: 1.3rem; font-weight: bold; color: var(--text); margin-bottom: 8px; }
+        .modal-body { font-size: 1rem; color: #666; margin-bottom: 28px; line-height: 1.6; }
+        .modal-btn-group { display: flex; gap: 10px; justify-content: center; }
+        .modal-btn {
+            padding: 14px 32px; border-radius: 12px; font-family: 'Sarabun', sans-serif;
+            font-size: 1rem; font-weight: bold; cursor: pointer; border: none;
+            transition: all 0.2s; flex: 1; max-width: 200px;
+        }
+        .modal-btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(223,88,124,0.3); }
+        .modal-btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+        .modal-btn-secondary { background: #f0f0f0; color: #555; }
+        .modal-btn-secondary:hover { background: #e0e0e0; }
+        .modal-icon-success { color: var(--success); }
+        .modal-icon-confirm { color: #e6a817; }
+
+        @media (max-width: 640px) {
+            .scale-row { flex-direction: column; }
+            .scale-row .single-scale { margin-bottom: 12px; }
+            .btn-group { flex-direction: column-reverse; }
+            .btn { width: 100%; flex: none; }
+            .modal-box { padding: 12px 20px 36px; }
+            .other-row { flex-wrap: wrap; }
+            .deg-row { flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav class="navbar">
+    <a href="https://sites.google.com/chula.ac.th/cu-i-vet-questionaire-en/english" class="navbar-logo">
+        <img src="images/logo_cu-vet_en.jpg" alt="CUVET Logo">
+    </a>
+    <span class="navbar-title">CU i-VET Stakeholder Assessment</span>
+    <div class="navbar-right">
+        <a href="https://sites.google.com/chula.ac.th/cu-i-vet-questionaire-th/%E0%B8%A0%E0%B8%B2%E0%B8%A9%E0%B8%B2%E0%B9%84%E0%B8%97%E0%B8%A2" class="lang-btn">ภาษาไทย</a>
+        <span class="lang-divider">|</span>
+        <a href="https://sites.google.com/chula.ac.th/cu-i-vet-questionaire-en/english" class="lang-btn active">English</a>
+    </div>
+</nav>
+
+<!-- ===================== BANNER ===================== -->
+<div class="banner">
+    <div class="banner-bg"></div>
+    <div class="banner-overlay"></div>
+    <div class="banner-content">
+        <h1 class="banner-heading">Stakeholder Survey:</h1>
+        <p class="banner-subheading">Doctor of Veterinary Medicine (International Program)</p>
+    </div>
+</div>
+
+<!-- ===================== QUESTIONNAIRE TITLE ===================== -->
+<div class="questionnaire-title-bar">
+    <h2 class="questionnaire-title">Employer</h2>
+</div>
+
+<div class="page-body">
+                              
+<!-- Modal: Confirm Reset -->
+<div class="modal-overlay" id="modal-confirm-reset">
+    <div class="modal-box">
+        <div class="modal-handle"></div>
+        <div class="modal-icon modal-icon-confirm">🗑️</div>
+        <div class="modal-title">Clear all responses?</div>
+        <div class="modal-body">All the information you have entered will be removed<br>and cannot be recovered.</div>
+        <div class="modal-btn-group">
+            <button class="modal-btn modal-btn-secondary" onclick="closeModal('modal-confirm-reset')">Cancel</button>
+            <button class="modal-btn modal-btn-primary" onclick="doReset()">Clear</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Success -->
+<div class="modal-overlay" id="modal-success">
+    <div class="modal-box">
+        <div class="modal-handle"></div>
+        <div class="modal-icon modal-icon-success">✅</div>
+        <div class="modal-title">Survey submitted successfully!</div>
+        <div class="modal-body">Thank you for your participation in this survey.<br>Your responses will be used solely to improve the CU i-VET curriculum.</div>
+        <div class="modal-btn-group">
+            <button class="modal-btn modal-btn-primary" onclick="closeModal('modal-success')">Close</button>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="mainForm">
+
+    <!-- ==================== Part 1 ==================== -->
+    <div class="question-card section-header">
+        <h3 style="color: var(--primary); margin:0;">Part 1: Respondent Information</h3>
+    </div>
+
+    <!-- Q1: Country -->
+    <div class="question-card" id="card-country">
+        <label class="question-title">1. What is your country of origin? <span class="required">*</span></label>
+        <select id="country">
+            <option value="">— Select a country —</option>
+        </select>
+        <div class="error-message">Please select your country of origin.</div>
+    </div>
+
+    <!-- Q2: Organization -->
+    <div class="question-card" id="card-org">
+        <label class="question-title">2. Name of your organization or institution <span class="required">*</span></label>
+        <input type="text" id="org" placeholder="Organization / Institution name">
+        <div class="error-message">Please enter the name of your organization or institution.</div>
+    </div>
+
+    <!-- Q3: Sector -->
+    <div class="question-card" id="card-org_type">
+        <label class="question-title">3. What sector is your organization in? <span class="required">*</span></label>
+        <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="org_type" value="Public Sector"> Public Sector</label>
+            <label class="radio-item"><input type="radio" name="org_type" value="Private Sector"> Private Sector</label>
+            <div class="other-row">
+                <input type="radio" name="org_type" value="other" id="org_type_other_radio"
+                    onchange="toggleOtherText('org_type_other_input', this.checked)">
+                <span class="other-label">Other</span>
+                <input type="text" id="org_type_other_input" class="other-text-input"
+                    placeholder="Please specify..." disabled>
+            </div>
+        </div>
+        <div class="error-message">Please select a sector.</div>
+    </div>
+
+    <!-- Q4: Area of Practice -->
+    <div class="question-card" id="card-org_work_type">
+        <label class="question-title">4. Area of Practice <span class="required">*</span></label>
+        <span class="question-subtitle">Select all that apply</span>
+        <div class="radio-group">
+            <label class="checkbox-item"><input type="checkbox" name="org_work_type" value="Small animal hospitals/clinics (Companion animals)"><span class="checkbox-label">Small animal hospitals/clinics (Companion animals)</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="org_work_type" value="Poultry farms"><span class="checkbox-label">Poultry farms</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="org_work_type" value="Pig farms"><span class="checkbox-label">Pig farms</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="org_work_type" value="Dairy farms"><span class="checkbox-label">Dairy farms</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="org_work_type" value="Horse farms"><span class="checkbox-label">Horse farms</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="org_work_type" value="Aquaculture (Commercial aquatic animals)"><span class="checkbox-label">Aquaculture (Commercial aquatic animals)</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="org_work_type" value="Aquatic animals (Ornamental/Pet fish)"><span class="checkbox-label">Aquatic animals (Ornamental/Pet fish)</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="org_work_type" value="Zoos / Wildlife parks"><span class="checkbox-label">Zoos / Wildlife parks</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="org_work_type" value="Diagnostic and medical research labs"><span class="checkbox-label">Diagnostic and medical research labs</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="org_work_type" value="Pet pharmaceutical industry"><span class="checkbox-label">Pet pharmaceutical industry</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="org_work_type" value="Livestock pharmaceutical industry"><span class="checkbox-label">Livestock pharmaceutical industry</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="org_work_type" value="Biopesticides production"><span class="checkbox-label">Biopesticides production</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="org_work_type" value="Animal feed mills / factories"><span class="checkbox-label">Animal feed mills / factories</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="org_work_type" value="Veterinary Public Health (Zoonoses / Disease outbreaks)"><span class="checkbox-label">Veterinary Public Health (Zoonoses / Disease outbreaks)</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="org_work_type" value="Veterinary Public Health (Food and agricultural standards)"><span class="checkbox-label">Veterinary Public Health (Food and agricultural standards)</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="org_work_type" value="Processing plants (Pork, seafood, poultry)"><span class="checkbox-label">Processing plants (Pork, seafood, poultry)</span></label>
+            <div class="other-row">
+                <input type="checkbox" id="org_work_type_other_check" onchange="toggleOtherText('org_work_type_other_input', this.checked)">
+                <span class="other-label">Other</span>
+                <input type="text" id="org_work_type_other_input" class="other-text-input"
+                    placeholder="Please specify..." disabled>
+            </div>
+        </div>
+        <div class="error-message">Please select at least one area of practice.</div>
+    </div>
+
+    <!-- Q5: Current Role -->
+    <div class="question-card" id="card-position">
+        <label class="question-title">5. Current Role <span class="required">*</span></label>
+        <input type="text" id="position" placeholder="Your current role / position">
+        <div class="error-message">Please enter your current role / position.</div>
+    </div>
+
+    <!-- Q6: Years of Experience -->
+    <div class="question-card" id="card-exp">
+        <label class="question-title">6. Years of Experience in Related Field <span class="required">*</span></label>
+        <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="exp" value="น้อยกว่า 1 ปี"> Less than 1 year</label>
+            <label class="radio-item"><input type="radio" name="exp" value="1 - 2 ปี"> 1 - 2 years</label>
+            <label class="radio-item"><input type="radio" name="exp" value="3 - 5 ปี"> 3 - 5 years</label>
+            <label class="radio-item"><input type="radio" name="exp" value="6 - 10 ปี"> 6 - 10 years</label>
+            <label class="radio-item"><input type="radio" name="exp" value="มากกว่า 10 ปี"> More than 10 years</label>
+        </div>
+        <div class="error-message">Please select your years of experience.</div>
+    </div>
+
+    <!-- Q7: Highest Level of Education -->
+    <div class="question-card" id="card-edu">
+        <label class="question-title">7. Highest Level of Education <span class="required">*</span></label>
+        <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="edu" value="ต่ำกว่าปริญญาตรี"> Below Bachelor's degree</label>
+            <label class="radio-item"><input type="radio" name="edu" value="ปริญญาตรี"> Bachelor's degree</label>
+            <label class="radio-item"><input type="radio" name="edu" value="ปริญญาโท"> Master's degree</label>
+            <label class="radio-item"><input type="radio" name="edu" value="ปริญญาเอก"> Doctoral degree</label>
+            <div class="other-row">
+                <input type="radio" name="edu" value="other" id="edu_other_radio"
+                    onchange="toggleOtherText('edu_other_input', this.checked)">
+                <span class="other-label">Other</span>
+                <input type="text" id="edu_other_input" class="other-text-input"
+                    placeholder="Please specify..." disabled>
+            </div>
+        </div>
+        <div class="error-message">Please select your highest level of education.</div>
+    </div>
+
+    <!-- ==================== Part 2 ==================== -->
+    <div class="section-gap"></div>
+    <div class="question-card section-header">
+        <h3 style="color: var(--primary); margin:0;">Part 2: Veterinary Workforce within Your Organization</h3>
+    </div>
+
+    <!-- Q2.1: Total Employees -->
+    <div class="question-card" id="card-org_size">
+        <label class="question-title">1. Total Number of Employees <span class="required">*</span></label>
+        <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="org_size" value="1 - 10 คน"> 1 - 10</label>
+            <label class="radio-item"><input type="radio" name="org_size" value="11 - 50 คน"> 11 - 50</label>
+            <label class="radio-item"><input type="radio" name="org_size" value="51 - 100 คน"> 51 - 100</label>
+            <label class="radio-item"><input type="radio" name="org_size" value="101 - 200 คน"> 101 - 200</label>
+            <label class="radio-item"><input type="radio" name="org_size" value="201 - 500 คน"> 201 - 500</label>
+            <label class="radio-item"><input type="radio" name="org_size" value="มากกว่า 500 คน"> More than 500</label>
+        </div>
+        <div class="error-message">Please select the total number of employees.</div>
+    </div>
+
+    <!-- Q2.2: Vet Ratio -->
+    <div class="question-card" id="card-vet_ratio">
+        <label class="question-title">2. What percentage of your total workforce are veterinarians? <span class="required">*</span></label>
+        <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="vet_ratio" value="น้อยกว่า 10%"> Less than 10%</label>
+            <label class="radio-item"><input type="radio" name="vet_ratio" value="10-30%"> 10% - 30%</label>
+            <label class="radio-item"><input type="radio" name="vet_ratio" value="31-50%"> 31% - 50%</label>
+            <label class="radio-item"><input type="radio" name="vet_ratio" value="51-80%"> 51% - 80%</label>
+            <label class="radio-item"><input type="radio" name="vet_ratio" value="มากกว่า 80%"> More than 80%</label>
+        </div>
+        <div class="error-message">Please select the percentage of veterinarians.</div>
+    </div>
+
+    <!-- Q2.3: Educational Breakdown -->
+    <div class="question-card" id="card-deg">
+        <label class="question-title">3. What is the educational breakdown of the veterinary graduates in your organization? <span class="required">*</span></label>
+        <span class="question-subtitle">Please indicate the approximate percentage for each degree level</span>
+
+        <div class="deg-row">
+            <input type="checkbox" id="deg_bachelor" onchange="toggleDegRow('pct_bachelor_wrap', this.checked)">
+            <span class="deg-label">Bachelor's degree</span>
+            <div class="deg-percent-wrap" id="pct_bachelor_wrap">
+                <input type="text" id="pct_bachelor_val" placeholder="Enter percentage">
+                <span class="pct-unit">%</span>
+                <button type="button" class="btn-unknown" id="btn_unknown_bachelor" onclick="toggleUnknown('pct_bachelor_val', 'btn_unknown_bachelor')">Don't know</button>
+            </div>
+        </div>
+        <div class="deg-row">
+            <input type="checkbox" id="deg_master" onchange="toggleDegRow('pct_master_wrap', this.checked)">
+            <span class="deg-label">Master's degree</span>
+            <div class="deg-percent-wrap" id="pct_master_wrap">
+                <input type="text" id="pct_master_val" placeholder="Enter percentage">
+                <span class="pct-unit">%</span>
+                <button type="button" class="btn-unknown" id="btn_unknown_master" onclick="toggleUnknown('pct_master_val', 'btn_unknown_master')">Don't know</button>
+            </div>
+        </div>
+        <div class="deg-row">
+            <input type="checkbox" id="deg_phd" onchange="toggleDegRow('pct_phd_wrap', this.checked)">
+            <span class="deg-label">Doctoral degree</span>
+            <div class="deg-percent-wrap" id="pct_phd_wrap">
+                <input type="text" id="pct_phd_val" placeholder="Enter percentage">
+                <span class="pct-unit">%</span>
+                <button type="button" class="btn-unknown" id="btn_unknown_phd" onclick="toggleUnknown('pct_phd_val', 'btn_unknown_phd')">Don't know</button>
+            </div>
+        </div>
+        <div class="error-message">Please select at least one degree level and fill in the required fields.</div>
+    </div>
+
+    <!-- Q2.4: Vet Roles -->
+    <div class="question-card" id="card-vet_role">
+        <label class="question-title">4. What roles do veterinary graduates fulfill within your organization? <span class="required">*</span></label>
+        <span class="question-subtitle">Select all that apply</span>
+        <div class="radio-group">
+            <label class="checkbox-item"><input type="checkbox" name="vet_role" value="Clinical Care & Animal Health Management"><span class="checkbox-label">Clinical Care &amp; Animal Health Management</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="vet_role" value="Disease Prevention & Biosecurity"><span class="checkbox-label">Disease Prevention &amp; Biosecurity</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="vet_role" value="Animal Resource Management & Regulation"><span class="checkbox-label">Animal Resource Management &amp; Regulation</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="vet_role" value="Consulting, Advisory, & Training"><span class="checkbox-label">Consulting, Advisory, &amp; Training</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="vet_role" value="Veterinary & Biomedical Research"><span class="checkbox-label">Veterinary &amp; Biomedical Research</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="vet_role" value="Community Outreach & Public Engagement"><span class="checkbox-label">Community Outreach &amp; Public Engagement</span></label>
+            <label class="checkbox-item"><input type="checkbox" name="vet_role" value="International Relations & Global Projects"><span class="checkbox-label">International Relations &amp; Global Projects</span></label>
+            <div class="other-row">
+                <input type="checkbox" id="role_other_check" onchange="toggleOtherText('role_other_input', this.checked)">
+                <span class="other-label">Other</span>
+                <input type="text" id="role_other_input" class="other-text-input" placeholder="Please specify..." disabled>
+            </div>
+        </div>
+        <div class="error-message">Please select at least one role.</div>
+    </div>
+
+    <!-- ==================== Part 3 ==================== -->
+    <div class="section-gap"></div>
+    <div class="question-card section-header">
+        <h3 style="color: var(--primary); margin:0;">Part 3: Core Competencies &amp; Required Skills</h3>
+        <p style="font-size: 0.9rem; color: #666; margin: 5px 0 0 0;">
+            Please evaluate the skills of recent veterinary graduates based on their Current Performance and your Expected Level of proficiency.
+            (Rating Scale: 1 = Lowest, 5 = Highest)<span class="required">*</span>
+        </p>
+    </div>
+    <div id="survey-form-s3"></div>
+
+    <!-- Q3.16: Additional Comments -->
+    <div class="question-card">
+        <label class="question-title">16. Additional comments or suggestions regarding required core competencies.</label>
+        <input type="text" id="s3_comment" placeholder="Optional comments or suggestions">
+    </div>
+
+    <!-- ==================== Part 4 ==================== -->
+    <div class="section-gap"></div>
+    <div class="question-card section-header">
+        <h3 style="color: var(--primary); margin:0;">Part 4: Professional Attributes &amp; Attitudes</h3>
+        <p style="font-size: 0.9rem; color: #666; margin: 5px 0 0 0;">
+            Please evaluate the professional attributes and attitudes of recent veterinary graduates based on their Current Performance and your Expected Level.
+            (Rating Scale: 1 = Lowest, 5 = Highest)<span class="required">*</span>
+        </p>
+    </div>
+    <div id="survey-form-s4"></div>
+
+    <!-- Q4.11: Additional Comments -->
+    <div class="question-card">
+        <label class="question-title">11. Additional comments or suggestions regarding professional attributes and attitudes.</label>
+        <input type="text" id="s4_comment" placeholder="Optional comments or suggestions">
+    </div>
+
+    <!-- ==================== Part 5 ==================== -->
+    <div class="section-gap"></div>
+    <div class="question-card section-header">
+        <h3 style="color: var(--primary); margin:0;">Part 5: Industry Trends &amp; Shifting Dynamics</h3>
+    </div>
+
+    <div class="question-card" id="card-trends">
+        <label class="question-title">1. Please identify key trends or major shifts impacting veterinary education and practice today and in the future. <span class="required">*</span></label>
+        <span class="question-subtitle">Require 3 answers</span>
+        <div id="trend-inputs"></div>
+        <button type="button" class="btn-add-more" onclick="addDynamicInput('trend-inputs')">+ Add more</button>
+        <div class="error-message">Please fill in all 3 required trend fields.</div>
+    </div>
+
+    <div class="question-card" id="card-skills">
+        <label class="question-title">2. What new areas of knowledge or specific skills should the veterinary curriculum incorporate to prepare graduates for these shifts? <span class="required">*</span></label>
+        <span class="question-subtitle">Require 1 answer</span>
+        <div id="skill-inputs"></div>
+        <button type="button" class="btn-add-more" onclick="addDynamicInput('skill-inputs')">+ Add more</button>
+        <div class="error-message">Please provide at least one area of knowledge or skill.</div>
+    </div>
+
+    <!-- ==================== Part 6 ==================== -->
+    <div class="section-gap"></div>
+    <div class="question-card section-header">
+        <h3 style="color: var(--primary); margin:0;">Part 6: Workforce Readiness</h3>
+    </div>
+
+    <!-- Q6.1: OJT Duration -->
+    <div class="question-card" id="card-ojt_duration">
+        <label class="question-title">1. On average, how long does it take for a recent graduate to meet your organization's performance standards through on-the-job training? <span class="required">*</span></label>
+        <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="ojt_duration" value="น้อยกว่า 1 เดือน"> Less than 1 month</label>
+            <label class="radio-item"><input type="radio" name="ojt_duration" value="1 - 3 เดือน"> 1 - 3 months</label>
+            <label class="radio-item"><input type="radio" name="ojt_duration" value="3 - 6 เดือน"> 3 - 6 months</label>
+            <label class="radio-item"><input type="radio" name="ojt_duration" value="มากกว่า 6 เดือน"> More than 6 months</label>
+        </div>
+        <div class="error-message">Please select the on-the-job training duration.</div>
+    </div>
+
+    <!-- Q6.2: Curriculum Fit Likert -->
+    <div class="question-card" id="card-curriculum_fit">
+        <label class="question-title">2. From your perspective, how well does the current veterinary curriculum align with the demands of the industry and society? <span class="required">*</span></label>
+        <div class="standalone-scale">
+            <div class="scale-labels"><span>Lowest</span><span>Highest</span></div>
+            <div class="single-likert">
+                <div class="option"><label>1</label><input type="radio" name="curriculum_fit" value="1"></div>
+                <div class="option"><label>2</label><input type="radio" name="curriculum_fit" value="2"></div>
+                <div class="option"><label>3</label><input type="radio" name="curriculum_fit" value="3"></div>
+                <div class="option"><label>4</label><input type="radio" name="curriculum_fit" value="4"></div>
+                <div class="option"><label>5</label><input type="radio" name="curriculum_fit" value="5"></div>
+            </div>
+        </div>
+        <div class="error-message">Please select a rating.</div>
+    </div>
+
+    <!-- Q6.3: Curriculum Recommendations -->
+    <div class="question-card">
+        <label class="question-title">3. What critical enhancements should the curriculum prioritize before students graduate to ensure they are fully day-one ready for the workplace?</label>
+        <input type="text" id="s6_recommendation" placeholder="Optional comments or suggestions">
+    </div>
+
+    <div class="btn-group">
+        <button type="button" onclick="confirmReset()" class="btn btn-secondary">Clear</button>
+        <button type="button" onclick="validateAndSubmit()" class="btn btn-primary">Submit Survey</button>
+    </div>
+</div>
+
+</div><!-- end .page-body -->
+
+<script>
+// =====================================================
+// Google Apps Script URL — replace with your endpoint
+// =====================================================
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyJzMfKHroqStKsMRHzekykodEhMI2fADdlAhNkVFiXbSbP1i5FAIU4sUuyBBidkE35/exec";
+
+// ===== Country list =====
+const COUNTRIES = [
+    "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia",
+    "Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium",
+    "Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei",
+    "Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada",
+    "Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo (Congo-Brazzaville)",
+    "Costa Rica","Croatia","Cuba","Cyprus","Czechia","Denmark","Djibouti","Dominica",
+    "Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia",
+    "Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana",
+    "Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary",
+    "Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan",
+    "Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon",
+    "Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi",
+    "Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico",
+    "Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar",
+    "Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria",
+    "North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama",
+    "Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania",
+    "Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines",
+    "Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles",
+    "Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa",
+    "South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland",
+    "Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga",
+    "Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine",
+    "United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu",
+    "Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"
+];
+
+(function populateCountries() {
+    var sel = document.getElementById('country');
+    COUNTRIES.forEach(function(c) {
+        var opt = document.createElement('option');
+        opt.value = c;
+        opt.textContent = c;
+        sel.appendChild(opt);
+    });
+})();
+
+// ===== Modal =====
+function openModal(id) { document.getElementById(id).classList.add('active'); }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+// ===== Error helpers =====
+function setError(cardId, hasError, message) {
+    var card = document.getElementById(cardId);
+    if (!card) return;
+    card.classList.toggle('has-error', hasError);
+    if (hasError && message) {
+        var errEl = card.querySelector('.error-message');
+        if (errEl) errEl.textContent = message;
+    }
+}
+function clearAllErrors() {
+    document.querySelectorAll('.question-card.has-error').forEach(function(el) { el.classList.remove('has-error'); });
+}
+
+// ===== Other text inputs =====
+function toggleOtherText(inputId, isEnabled) {
+    var input = document.getElementById(inputId);
+    if (!input) return;
+    input.disabled = !isEnabled;
+    if (!isEnabled) input.value = '';
+}
+
+// ===== Degree percent toggle =====
+function toggleDegRow(wrapperId, isChecked) {
+    var wrapper = document.getElementById(wrapperId);
+    wrapper.classList.toggle('visible', isChecked);
+    if (!isChecked) {
+        var inp = wrapper.querySelector('input[type="text"]');
+        if (inp) inp.value = '';
+        var btn = wrapper.querySelector('.btn-unknown');
+        if (btn) {
+            btn.classList.remove('active');
+            if (inp) inp.disabled = false;
+        }
+    }
+}
+
+// ===== "Don't know" toggle button =====
+function toggleUnknown(inputId, btnId) {
+    var input = document.getElementById(inputId);
+    var btn = document.getElementById(btnId);
+    if (!input || !btn) return;
+    var isActive = btn.classList.toggle('active');
+    if (isActive) {
+        input.value = "Don't know";
+        input.disabled = true;
+    } else {
+        input.value = '';
+        input.disabled = false;
+        input.focus();
+    }
+}
+
+// ===== Radio "Other" listeners =====
+document.addEventListener('change', function(e) {
+    if (e.target.type === 'radio' && e.target.name === 'org_type') {
+        toggleOtherText('org_type_other_input', e.target.value === 'other');
+    }
+    if (e.target.type === 'radio' && e.target.name === 'edu') {
+        toggleOtherText('edu_other_input', e.target.value === 'other');
+    }
+});
+
+// =====================================================
+// Likert builders
+// =====================================================
+var questionsS3 = [
+    "1. Theoretical Knowledge: Foundational knowledge in veterinary science",
+    "2. Clinical & Practical Skills: Hands-on competency and technical execution",
+    "3. Critical Thinking: Critical thinking and clinical problem-solving",
+    "4. Creativity & Innovation: Ability to drive creative solutions and innovation",
+    "5. Communication: Communication and professional presentation skills",
+    "6. Collaboration: Teamwork, interpersonal skills, and cross-functional coordination",
+    "7. Digital Literacy: Proficiency with digital technologies and tools",
+    "8. Adaptability: Lifelong learning mindset and adaptability to change",
+    "9. Project Management: Ability to plan, execute, and manage projects",
+    "10. Language Proficiency: Professional fluency in foreign languages",
+    "11. Global & Cultural Awareness: Understanding of global contexts and cultural diversity",
+    "12. Professional Ethics: Professional ethics and social responsibility",
+    "13. Self-Management: Personal accountability and time management",
+    "14. Data Analytics: Data analysis and statistical applications",
+    "15. Systems Thinking: Ability to analyze complex, interconnected systems"
+];
+
+var questionsS4 = [
+    "1. Integrity: Honesty and ethical standards",
+    "2. Accountability: Personal responsibility and punctuality",
+    "3. Commitment: Dedication and perseverance",
+    "4. Professionalism: Professional conduct and workplace behavior",
+    "5. Positive Mindset: Resilience and a constructive, positive attitude",
+    "6. Flexibility: Adaptability to evolving workplace dynamics",
+    "7. Continuous Growth: Enthusiasm and proactive drive for learning",
+    "8. Self-Discipline: Self-control, focus, and discipline",
+    "9. Initiative: Entrepreneurial mindset and proactive drive",
+    "10. Civic Responsibility: Public spirit and community mindfulness"
+];
+
+function buildTwoColLikert(questionList, containerId, prefix) {
+    var container = document.getElementById(containerId);
+    questionList.forEach(function(q, i) {
+        var div = document.createElement('div');
+        div.className = 'question-card';
+        div.id = prefix + '-card-' + i;
+        function makeOptions(name) {
+            var html = '';
+            for (var n = 1; n <= 5; n++) {
+                html += '<div class="option"><label>' + n + '</label><input type="radio" name="' + name + '" value="' + n + '"></div>';
+            }
+            return html;
+        }
+        div.innerHTML =
+            '<label class="question-title">' + q + '</label>' +
+            '<div class="scale-row">' +
+                '<div class="single-scale">' +
+                    '<div class="scale-header" style="color:#5a8bbd">Current Performance</div>' +
+                    '<div class="scale-labels"><span>Lowest</span><span>Highest</span></div>' +
+                    '<div class="single-likert">' + makeOptions(prefix + '_current_' + i) + '</div>' +
+                '</div>' +
+                '<div class="single-scale scale-target">' +
+                    '<div class="scale-header" style="color:var(--primary)">Expected Level</div>' +
+                    '<div class="scale-labels"><span>Lowest</span><span>Highest</span></div>' +
+                    '<div class="single-likert">' + makeOptions(prefix + '_target_' + i) + '</div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="error-message">Please rate both Current Performance and Expected Level.</div>';
+        container.appendChild(div);
+    });
+}
+
+buildTwoColLikert(questionsS3, 'survey-form-s3', 's3');
+buildTwoColLikert(questionsS4, 'survey-form-s4', 's4');
+
+// =====================================================
+// Dynamic inputs
+// =====================================================
+function createInputRow(placeholder, canDelete) {
+    var wrapper = document.createElement('div');
+    wrapper.className = 'dynamic-input-wrapper';
+    wrapper.innerHTML = '<input type="text" placeholder="' + placeholder + '">' +
+        (canDelete ? '<button type="button" class="btn-remove" onclick="removeRow(this)">Remove</button>' : '');
+    return wrapper;
+}
+function addDynamicInput(containerId) {
+    document.getElementById(containerId).appendChild(createInputRow('Please specify...', true));
+}
+function removeRow(btn) { btn.parentElement.remove(); }
+
+(function() {
+    var c = document.getElementById('trend-inputs');
+    for (var i = 1; i <= 3; i++) c.appendChild(createInputRow('Trend ' + i, false));
+})();
+(function() {
+    document.getElementById('skill-inputs').appendChild(createInputRow('Please specify...', false));
+})();
+
+// =====================================================
+// Reset
+// =====================================================
+function confirmReset() { openModal('modal-confirm-reset'); }
+function doReset() {
+    closeModal('modal-confirm-reset');
+    clearAllErrors();
+    document.querySelectorAll('input[type="text"]').forEach(function(el) { el.value = ''; el.disabled = false; });
+    document.querySelectorAll('input[type="radio"]').forEach(function(el) { el.checked = false; });
+    document.querySelectorAll('input[type="checkbox"]').forEach(function(el) { el.checked = false; });
+    document.querySelectorAll('.other-text-input').forEach(function(el) { el.disabled = true; el.value = ''; });
+    document.getElementById('country').value = '';
+    ['pct_bachelor_wrap','pct_master_wrap','pct_phd_wrap'].forEach(function(id) {
+        document.getElementById(id).classList.remove('visible');
+    });
+    document.querySelectorAll('.btn-unknown').forEach(function(btn) { btn.classList.remove('active'); });
+    resetDynamicInputs('trend-inputs', 3);
+    resetDynamicInputs('skill-inputs', 1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function resetDynamicInputs(containerId, keepCount) {
+    var rows = document.getElementById(containerId).querySelectorAll('.dynamic-input-wrapper');
+    rows.forEach(function(row, idx) {
+        if (idx < keepCount) { var inp = row.querySelector('input'); if (inp) inp.value = ''; }
+        else row.remove();
+    });
+}
+
+// =====================================================
+// Validate
+// =====================================================
+function validateAndSubmit() {
+    clearAllErrors();
+    var firstErrorCard = null;
+    var hasError = false;
+
+    function markError(cardId, message) {
+        setError(cardId, true, message);
+        if (!firstErrorCard) firstErrorCard = document.getElementById(cardId);
+        hasError = true;
+    }
+
+    // Part 1
+    if (!document.getElementById('country').value) markError('card-country', 'Please select your country of origin.');
+    if (!document.getElementById('org').value.trim()) markError('card-org', 'Please enter the name of your organization or institution.');
+    var orgType = document.querySelector('input[name="org_type"]:checked');
+    if (!orgType) {
+        markError('card-org_type', 'Please select a sector.');
+    } else if (orgType.value === 'other' && !document.getElementById('org_type_other_input').value.trim()) {
+        markError('card-org_type', 'Please specify your sector in the Other field.');
+    }
+    var orgWorkChecked = document.querySelectorAll('input[name="org_work_type"]:checked').length > 0;
+    var orgWorkOther = document.getElementById('org_work_type_other_check').checked;
+    if (!orgWorkChecked && !orgWorkOther) {
+        markError('card-org_work_type', 'Please select at least one area of practice.');
+    } else if (orgWorkOther && !document.getElementById('org_work_type_other_input').value.trim()) {
+        markError('card-org_work_type', 'Please specify your area of practice in the Other field.');
+    }
+    if (!document.getElementById('position').value.trim()) markError('card-position', 'Please enter your current role / position.');
+    if (!document.querySelector('input[name="exp"]:checked')) markError('card-exp', 'Please select your years of experience.');
+    var edu = document.querySelector('input[name="edu"]:checked');
+    if (!edu) {
+        markError('card-edu', 'Please select your highest level of education.');
+    } else if (edu.value === 'other' && !document.getElementById('edu_other_input').value.trim()) {
+        markError('card-edu', 'Please specify your level of education in the Other field.');
+    }
+
+    // Part 2
+    if (!document.querySelector('input[name="org_size"]:checked')) markError('card-org_size', 'Please select the total number of employees.');
+    if (!document.querySelector('input[name="vet_ratio"]:checked')) markError('card-vet_ratio', 'Please select the percentage of veterinarians.');
+    var degChecked = ['deg_bachelor','deg_master','deg_phd'].some(function(id) { return document.getElementById(id).checked; });
+    if (!degChecked) {
+        markError('card-deg', 'Please select at least one degree level.');
+    } else {
+        var missingVal = [
+            ['deg_bachelor','pct_bachelor_val','btn_unknown_bachelor'],
+            ['deg_master','pct_master_val','btn_unknown_master'],
+            ['deg_phd','pct_phd_val','btn_unknown_phd']
+        ].some(function(pair) {
+            return document.getElementById(pair[0]).checked
+                && !document.getElementById(pair[2]).classList.contains('active')
+                && !document.getElementById(pair[1]).value.trim();
+        });
+        if (missingVal) markError('card-deg', 'Please enter a percentage or click "Don\'t know" for each selected degree level.');
+    }
+    var roleChecked = document.querySelectorAll('input[name="vet_role"]:checked').length > 0;
+    var roleOther = document.getElementById('role_other_check').checked;
+    if (!roleChecked && !roleOther) {
+        markError('card-vet_role', 'Please select at least one role.');
+    } else if (roleOther && !document.getElementById('role_other_input').value.trim()) {
+        markError('card-vet_role', 'Please specify the role in the Other field.');
+    }
+
+    // Part 3
+    for (var i = 0; i < questionsS3.length; i++) {
+        if (!document.querySelector('input[name="s3_current_' + i + '"]:checked') ||
+            !document.querySelector('input[name="s3_target_' + i + '"]:checked')) {
+            markError('s3-card-' + i, 'Please rate both Current Performance and Expected Level.');
+        }
+    }
+
+    // Part 4
+    for (var j = 0; j < questionsS4.length; j++) {
+        if (!document.querySelector('input[name="s4_current_' + j + '"]:checked') ||
+            !document.querySelector('input[name="s4_target_' + j + '"]:checked')) {
+            markError('s4-card-' + j, 'Please rate both Current Performance and Expected Level.');
+        }
+    }
+
+    // Part 5
+    var trendRows = document.querySelectorAll('#trend-inputs .dynamic-input-wrapper input[type="text"]');
+    var trendFilled = 0;
+    for (var t = 0; t < Math.min(3, trendRows.length); t++) { if (trendRows[t].value.trim()) trendFilled++; }
+    if (trendFilled < 3) markError('card-trends', 'Please fill in all 3 required trend fields.');
+    if (!Array.from(document.querySelectorAll('#skill-inputs .dynamic-input-wrapper input[type="text"]')).some(function(el) { return el.value.trim(); })) {
+        markError('card-skills', 'Please provide at least one area of knowledge or skill.');
+    }
+
+    // Part 6
+    if (!document.querySelector('input[name="ojt_duration"]:checked')) markError('card-ojt_duration', 'Please select the on-the-job training duration.');
+    if (!document.querySelector('input[name="curriculum_fit"]:checked')) markError('card-curriculum_fit', 'Please select a rating.');
+
+    if (hasError) {
+        if (firstErrorCard) firstErrorCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+    submitToSheets();
+}
+
+// =====================================================
+// Submit
+// =====================================================
+function submitToSheets() {
+    var btn = document.querySelector('.btn-primary');
+    var originalText = btn.textContent;
+    btn.textContent = "Submitting...";
+    btn.disabled = true;
+
+    var formData = {};
+
+    // Part 1
+    formData.s1_country      = document.getElementById('country').value;
+    formData.s1_org          = document.getElementById('org').value.trim();
+    var orgTypeEl = document.querySelector('input[name="org_type"]:checked');
+    formData.s1_org_type = orgTypeEl.value === 'other'
+        ? document.getElementById('org_type_other_input').value.trim()
+        : orgTypeEl.value;
+    var orgWorkTypes = Array.from(document.querySelectorAll('input[name="org_work_type"]:checked')).map(function(el) { return el.value; });
+    if (document.getElementById('org_work_type_other_check').checked) {
+        orgWorkTypes.push(document.getElementById('org_work_type_other_input').value.trim());
+    }
+    formData.s1_org_work_type = orgWorkTypes.join(", ");
+    formData.s1_position = document.getElementById('position').value.trim();
+    formData.s1_exp      = document.querySelector('input[name="exp"]:checked').value;
+    var eduEl = document.querySelector('input[name="edu"]:checked');
+    formData.s1_edu = eduEl.value === 'other'
+        ? document.getElementById('edu_other_input').value.trim()
+        : eduEl.value;
+
+    // Part 2
+    formData.s2_org_size  = document.querySelector('input[name="org_size"]:checked').value;
+    formData.s2_vet_ratio = document.querySelector('input[name="vet_ratio"]:checked').value;
+
+    function getDegValue(checkId, valId, btnId) {
+        if (!document.getElementById(checkId).checked) return "";
+        if (document.getElementById(btnId).classList.contains('active')) return "Don't know";
+        return document.getElementById(valId).value.trim();
+    }
+    formData.s2_pct_bachelor = getDegValue('deg_bachelor', 'pct_bachelor_val', 'btn_unknown_bachelor');
+    formData.s2_pct_master   = getDegValue('deg_master',   'pct_master_val',   'btn_unknown_master');
+    formData.s2_pct_phd      = getDegValue('deg_phd',      'pct_phd_val',      'btn_unknown_phd');
+
+    var roles = Array.from(document.querySelectorAll('input[name="vet_role"]:checked')).map(function(el) { return el.value; });
+    if (document.getElementById('role_other_check').checked) roles.push(document.getElementById('role_other_input').value.trim());
+    formData.s2_vet_roles = roles.join(", ");
+
+    // Part 3
+    for (var i = 0; i < questionsS3.length; i++) {
+        var c3 = document.querySelector('input[name="s3_current_' + i + '"]:checked');
+        var t3 = document.querySelector('input[name="s3_target_' + i + '"]:checked');
+        formData['s3_current_' + i] = c3 ? c3.value : "";
+        formData['s3_target_' + i]  = t3 ? t3.value : "";
+    }
+    formData.s3_comment = document.getElementById('s3_comment').value.trim();
+
+    // Part 4
+    for (var j = 0; j < questionsS4.length; j++) {
+        var c4 = document.querySelector('input[name="s4_current_' + j + '"]:checked');
+        var t4 = document.querySelector('input[name="s4_target_' + j + '"]:checked');
+        formData['s4_current_' + j] = c4 ? c4.value : "";
+        formData['s4_target_' + j]  = t4 ? t4.value : "";
+    }
+    formData.s4_comment = document.getElementById('s4_comment').value.trim();
+
+    // Part 5
+    formData.s5_trends = Array.from(document.querySelectorAll('#trend-inputs .dynamic-input-wrapper input[type="text"]'))
+        .map(function(el) { return el.value.trim(); }).filter(function(v) { return v; }).join(" | ");
+    formData.s5_new_skills = Array.from(document.querySelectorAll('#skill-inputs .dynamic-input-wrapper input[type="text"]'))
+        .map(function(el) { return el.value.trim(); }).filter(function(v) { return v; }).join(" | ");
+
+    // Part 6
+    formData.s6_ojt_duration   = document.querySelector('input[name="ojt_duration"]:checked').value;
+    var fitEl = document.querySelector('input[name="curriculum_fit"]:checked');
+    formData.s6_curriculum_fit = fitEl ? fitEl.value : "";
+    formData.s6_recommendation = document.getElementById('s6_recommendation').value.trim();
+
+    fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify(formData)
+    })
+    .then(function() {
+        openModal('modal-success');
+        doReset();
+    })
+    .catch(function(err) {
+        console.error("Submission failed:", err);
+        var box = document.getElementById('modal-success');
+        box.querySelector('.modal-icon').textContent = '❌';
+        box.querySelector('.modal-icon').style.color = 'var(--error)';
+        box.querySelector('.modal-title').textContent = 'Submission Failed';
+        box.querySelector('.modal-body').textContent = 'Unable to submit the survey. Please try again.';
+        openModal('modal-success');
+    })
+    .finally(function() {
+        btn.textContent = originalText;
+        btn.disabled = false;
+    });
+}
+</script>
+</body>
+</html>
